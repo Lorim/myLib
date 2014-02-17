@@ -1,0 +1,24 @@
+== User Table ==
+
+CREATE TABLE `user` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `username` varchar(150) DEFAULT NULL,
+  `pwd` varchar(45) DEFAULT NULL,
+  `created` datetime DEFAULT NULL,
+  `lastlogin` datetime DEFAULT NULL,
+  `group` varchar(150) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8
+
+== Character Table ==
+
+CREATE TABLE `characters` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `active` tinyint(4) DEFAULT NULL,
+  `name` varchar(150) DEFAULT NULL,
+  `created` datetime DEFAULT NULL,
+  `userid` int(11) NOT NULL,
+  `level` int(11) NOT NULL DEFAULT '1',
+  `xp` int(11) DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8

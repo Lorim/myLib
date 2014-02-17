@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configdata>
+    <nav>
+        <character>
+            <label>myLib</label>
+            <controller></controller>
+            <route>default</route>
+            <resource>mylib</resource>
+            <privilege>view</privilege>
+            <pages>
+                <library>
+                    <label>MP3 List</label>
+                    <controller>index</controller>
+                    <route>default</route>
+                    <action>view</action>
+                    <resource>mylib</resource>
+                    <privilege>view</privilege>
+                </library>
+                <levelchar>
+                    <label>Alben</label>
+                    <controller>index</controller>
+                    <route>default</route>
+                    <action>alben</action>
+                    <resource>mylib</resource>
+                    <privilege>alben</privilege>
+                </levelchar>
+            </pages>
+        </character>
+    </nav>
+</configdata>

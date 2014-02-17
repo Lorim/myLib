@@ -1,0 +1,15 @@
+<div class="col-lg-3">
+    <article class="thisbox">
+        <div class="head">
+            <span>Character</span>
+        </div>
+        <div class="body">
+            <p class="text-muted">
+                Name: <?php echo $this->char->getName();?><br />
+                Created: <?php echo $this->char->getCreated();?><br />
+                Level: <?php echo $this->char->getLevel();?><br />
+                XP: <?php echo $this->char->getXp();?> / <?php echo $this->char->getLevelreq()->getMaxxp();?><br />
+            </p>
+        </div>
+    </article>
+</div>
