@@ -57,7 +57,7 @@ class Application_Model_Mp3Mapper {
                 ->where("filename = ?", $filename)
                 );
         $row = $resultSet->current();
-        if(!$row) return;
+        if(!$row) return new Application_Model_Mp3();
         $oEntry = new Application_Model_Mp3();
         $oEntry->setAlbum($row->album)
                 ->setArtist($row->artist)
@@ -108,7 +108,30 @@ class Application_Model_Mp3Mapper {
             );
         }
         return $entries;
-        
+    }
+    public function fetchAlbum($sAlbum) {
+        $resultSet = $this->getDbTable()->fetchAll(
+                $this->getDbTable()
+                ->select()
+                ->where('album=?', $sAlbum)
+                );
+        $entries = array();
+        foreach ($resultSet as $row) {
+            $entry = new Application_Model_Mp3();
+            $entry->setAlbum($row->album)
+                    ->setArtist($row->artist)
+                    ->setComment($row->comment)
+                    ->setFilename($row->filename)
+                    ->setGenre($row->genre)
+                    ->setHash($row->hash)
+                    ->setId($row->id)
+                    ->setPath($row->path)
+                    ->setTitle($row->title)
+                    ->setTrack($row->track)
+                    ->setYear($row->year);
+                $entries[] = $entry;
+        }
+        return $entries;
     }
     public function fetchAll() {
         $resultSet = $this->getDbTable()->fetchAll(

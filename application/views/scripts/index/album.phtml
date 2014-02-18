@@ -1,0 +1,49 @@
+<div class="page-header">
+    <h1>myLib <small>- <?php echo $this->album;?></small></h1>
+</div>
+
+<div class="col-lg-12 col-md-12">
+    <div class="row">
+        <p>
+            <table class="table table-condensed">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Album</th>
+                        <th>Artist</th>
+                        <th>Titel</th>
+                        <th>Jahr</th>
+                        <th>Play</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($this->songs as $song): ?>
+                    <?php
+                    $oMeta = $this->lastfm->getTrackinfo(
+                            $song->getArtist(),
+                            $song->getAlbum()
+                            );
+                    $sCover = "";
+                    /*
+                    foreach($oMeta->album->image as $image) {
+                        if($image->size == 'large') {
+                            $sCover = $image->{'#text'};
+                        }
+                    }
+                     *
+                     */
+                    ?>
+                    <tr>
+                        <td><?php echo $song->getId()?></td>
+                        <td><?php echo $song->getAlbum()?></td>
+                        <td><?php echo $song->getArtist()?></td>
+                        <td><?php echo $song->getTitle()?></td>
+                        <td><?php echo $song->getYear()?></td>
+                        <td><audio src="<?php echo $song->getWebpath()?>" preload="auto" controls></audio></td>
+                    </tr>
+                    <?php endforeach;?>
+                </tbody>
+            </table>
+        </p>
+    </div>
+</div>

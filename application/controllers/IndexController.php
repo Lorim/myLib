@@ -76,7 +76,7 @@ class IndexController extends Zend_Controller_Action {
                 //Zend_Debug::dump($xml);
                 //return;
             }
-            //$this->_helper->redirector('view', 'index', 'default');
+            $this->_helper->redirector('view', 'index', 'default');
         } catch (Exception $ex) {
             Zend_Debug::dump($ex);
         }
@@ -103,6 +103,15 @@ class IndexController extends Zend_Controller_Action {
         $oMp3mapper = new Application_Model_Mp3Mapper();
         $aList = $oMp3mapper->fetchAlben();
         $this->view->alben = $aList;
+        $this->view->lastfm = new Application_Model_Lastfm();
+    }
+    public function albumAction() {
+        $oMp3mapper = new Application_Model_Mp3Mapper();
+        $aSongs = $oMp3mapper->fetchAlbum(
+                $this->_request->getParam('alb')
+                );
+        $this->view->album = $this->_request->getParam('alb');
+        $this->view->songs = $aSongs;
         $this->view->lastfm = new Application_Model_Lastfm();
     }
 }

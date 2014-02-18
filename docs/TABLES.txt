@@ -10,15 +10,19 @@ CREATE TABLE `user` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8
 
-== Character Table ==
+== MP3 Table ==
 
-CREATE TABLE `characters` (
+CREATE TABLE `mp3` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `active` tinyint(4) DEFAULT NULL,
-  `name` varchar(150) DEFAULT NULL,
-  `created` datetime DEFAULT NULL,
-  `userid` int(11) NOT NULL,
-  `level` int(11) NOT NULL DEFAULT '1',
-  `xp` int(11) DEFAULT '0',
+  `album` varchar(150) DEFAULT NULL,
+  `artist` varchar(150) DEFAULT NULL,
+  `comment` text,
+  `genre` varchar(150) DEFAULT NULL,
+  `title` varchar(150) DEFAULT NULL,
+  `track` int(11) DEFAULT NULL,
+  `year` int(11) DEFAULT NULL,
+  `hash` varchar(45) DEFAULT NULL,
+  `path` varchar(250) DEFAULT NULL,
+  `filename` varchar(150) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8
