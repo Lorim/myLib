@@ -109,11 +109,11 @@ class Application_Model_Mp3Mapper {
         }
         return $entries;
     }
-    public function fetchAlbum($sAlbum) {
+    public function fetchAlbum($iAlbum) {
         $resultSet = $this->getDbTable()->fetchAll(
                 $this->getDbTable()
                 ->select()
-                ->where('album=?', $sAlbum)
+                ->where('album=?', $iAlbum)
                 );
         $entries = array();
         foreach ($resultSet as $row) {

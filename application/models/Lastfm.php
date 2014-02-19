@@ -22,15 +22,9 @@ class Application_Model_Lastfm
     }
     
     public function getAlbuminfo($sArtist, $sAlbum) {
-        $sCachefile = APPLICATION_PATH."/../public/cache/". md5($sArtist.$sAlbum).".json";
+        $sCachefile = APPLICATION_PATH."/../public/cache/album_". md5($sArtist.$sAlbum).".json";
         
         if(!file_exists($sCachefile)) {
-            $request = $this->_baseurl.
-                    "?method=album.getinfo&api_key=".
-                    $this->_apikey.
-                    "&artist=".$sArtist."&album=".$sAlbum.
-                    "&autocorrect=1".
-                    "&format=json";
             try {
             $client = new Zend_Http_Client($this->_baseurl);
             $client->setParameterGet(
@@ -43,7 +37,6 @@ class Application_Model_Lastfm
                     )
                     );
             $response = $client->request();
-
             $json = $response->decodeGzip($response->getRawBody());
             file_put_contents($sCachefile, $json);
             } catch (Exception $e) {
@@ -55,15 +48,9 @@ class Application_Model_Lastfm
         return json_decode($json);
     }
     public function getTrackinfo($sArtist, $sTrack) {
-        $sCachefile = APPLICATION_PATH."/../public/cache/". md5($sArtist.$sTrack).".json";
+        $sCachefile = APPLICATION_PATH."/../public/cache/track_". md5($sArtist.$sTrack).".json";
         
         if(!file_exists($sCachefile)) {
-            $request = $this->_baseurl.
-                    "?method=album.getinfo&api_key=".
-                    $this->_apikey.
-                    "&artist=".$sArtist."&album=".$sTrack.
-                    "&autocorrect=1".
-                    "&format=json";
             try {
             $client = new Zend_Http_Client($this->_baseurl);
             $client->setParameterGet(

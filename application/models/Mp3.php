@@ -65,6 +65,11 @@ class Application_Model_Mp3
     public function getAlbum() {
         return $this->_album;
     }
+    public function getAlbumname() {
+        $oAlbummapper = new Application_Model_AlbumMapper();
+        $oAlbum = $oAlbummapper->fetchOne($this->getAlbum());
+        return $oAlbum->getAlbum();
+    }
     public function setArtist($artist) {
         $this->_artist = $artist;
         return $this;

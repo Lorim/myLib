@@ -8,8 +8,8 @@
             <?php foreach ($this->alben as $album): ?>
             <?php
             $oMeta = $this->lastfm->getAlbuminfo(
-                    $album['artist'],
-                    $album['album']
+                    $album->getArtist(),
+                    $album->getAlbum()
                     );
             $sCover = "";
             foreach($oMeta->album->image as $image) {
@@ -20,12 +20,12 @@
             $sUrl = $this->url(array(
                 'controller'=>'index',
                 'action'=>'album',
-                'alb'=>$album['album'])
+                'alb'=>$album->getId())
                     , null, TRUE);
 
             ?>
             <div class="content col-lg-2 col-md-4 col-sm-6">
-                <h5><?php echo $album['artist']."<br />".$album['album'];?></h5>
+                <h5><?php echo $album->getArtist()."<br />".$album->getAlbum();?></h5>
                 <div class="row">
                     <div class="col-lg-12 col-sm-6">
                         <a href="<?php echo $sUrl;?>"> 

@@ -59,13 +59,32 @@ class IndexController extends Zend_Controller_Action {
         $oScan = new Application_Model_Scandir();
         try{
             $files = $oScan->scan();
+            $lastfm = new Application_Model_Lastfm();
             $mp3mapper = new Application_Model_Mp3Mapper();
+            $oAlbummapper = new Application_Model_AlbumMapper();
             foreach($files as $file) {
                 $id3 = new Application_Model_Id3($file);
                 $mp3File = $mp3mapper->searchfile($id3->getPath(), $id3->getFilename());
+                $oAlbum = $oAlbummapper->fetchOneByName(
+                        $id3->getAlbum(),
+                        $id3->getArtist()
+                        );
+                
+                if(!$oAlbum->getId()) {
+                    $oMeta = $lastfm->getAlbuminfo( $id3->getArtist(), $id3->getAlbum());
+                    $oAlbum->setArtist($id3->getArtist())
+                            ->setAlbum($id3->getAlbum())
+                            ->setMbid($oMeta->album->mbid);
+                    
+                    $oAlbummapper->save($oAlbum);
+                    $oAlbum = $oAlbummapper->fetchOneByName(
+                        $id3->getAlbum(),
+                        $id3->getArtist()
+                        );
+                }
                 $mp3File->setArtist($id3->getArtist())
                         ->setTitle($id3->getTitle())
-                        ->setAlbum($id3->getAlbum())
+                        ->setAlbum($oAlbum->getId())
                         ->setGenre($id3->getGenre())
                         ->setYear($id3->getYear())
                         ->setHash(md5($file))
@@ -73,21 +92,10 @@ class IndexController extends Zend_Controller_Action {
                         ->setFilename($id3->getFilename());
                 
                 $mp3mapper->save($mp3File);
-                //Zend_Debug::dump($xml);
-                //return;
             }
             $this->_helper->redirector('view', 'index', 'default');
         } catch (Exception $ex) {
             Zend_Debug::dump($ex);
-        }
-        $oMp3mapper = new Application_Model_Mp3Mapper();
-        $aList = $oMp3mapper->fetchAll();
-        foreach($aList as $mp3) {
-            $lastfm = new Application_Model_Lastfm();
-            Zend_Debug::dump($lastfm->getAlbuminfo($mp3->getArtist(), $mp3->getAlbum()));
-            $lastfm->getTrackinfo($mp3->getArtist(), $mp3->getTitle());
-            die();
-            //Zend_Debug::dump($mp3);
         }
     }
     public function playAction() {
@@ -96,21 +104,21 @@ class IndexController extends Zend_Controller_Action {
         $iMp3 = $this->_request->getParam('id');
         $oMp3mapper = new Application_Model_Mp3Mapper();
         $oMp3 = $oMp3mapper->fetchOne($iMp3);
-        //Zend_Debug::dump($oMp3);
         readfile($oMp3->getPath(). "/" . $oMp3->getFilename());
     }
     public function albenAction() {
-        $oMp3mapper = new Application_Model_Mp3Mapper();
-        $aList = $oMp3mapper->fetchAlben();
+        $oAlbummapper = new Application_Model_AlbumMapper();
+        $aList = $oAlbummapper->fetchAll();
         $this->view->alben = $aList;
         $this->view->lastfm = new Application_Model_Lastfm();
     }
     public function albumAction() {
         $oMp3mapper = new Application_Model_Mp3Mapper();
+        $oAlbummapper = new Application_Model_AlbumMapper();
         $aSongs = $oMp3mapper->fetchAlbum(
                 $this->_request->getParam('alb')
                 );
-        $this->view->album = $this->_request->getParam('alb');
+        $this->view->album = $oAlbummapper->fetchOne($this->_request->getParam('alb'));
         $this->view->songs = $aSongs;
         $this->view->lastfm = new Application_Model_Lastfm();
     }
