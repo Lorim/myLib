@@ -15,6 +15,13 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
         return $autoLoader;
     }
 
+    protected function _initAuth()
+    {
+      $this->bootstrap('frontController');
+      $this->getResource('frontController')
+           ->registerPlugin(new Application_Plugin_Auth());
+    }
+    
     protected function _initNavigation() {
 
         $helper = new Application_Controller_Helper_Acl();
@@ -46,29 +53,6 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
         $acl = Zend_Registry::get("acl");
         $auth = Zend_Auth::getInstance();
 
-        if ($auth->hasIdentity()) {
-            $navigation->addPage(
-                new Zend_Config(
-                    array(
-                        'label' => 'Logout',
-                        'controller' => 'index',
-                        'action' => 'logout',
-                        'route' => 'default'
-                    )
-                )
-            );
-        } else {
-            $navigation->addPage(
-                new Zend_Config(
-                    array(
-                        'label' => 'Login',
-                        'controller' => 'index',
-                        'action' => 'logout',
-                        'route' => 'loginroute'
-                    )
-                )
-            );
-        }
         $identity = $auth->getIdentity();
 
         $view->navigation($navigation);
@@ -103,22 +87,22 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
         $view->baseUrl = $view->baseUrl();
         $css = array(
             '/css/bootstrap.css',
-            '/css/bootstrap-image-gallery.css',
-            '/css/owl.carousel.css',
-            '/css/owl.theme.css',
-            '/css/bootstrap-notify.css',
+            '/css/AdminLTE.css',
+            '/css/font-awesome.min.css',
+            '/css/ionicons.min.css',
             '/css/site.css',
         );
         foreach ($css as $file) {
             $view->headLink()->appendStylesheet($view->baseUrl($file));
         }
         $js = array(
-            '/js/jquery-2.0.3.js',
+            '/js/jquery.min.js',
             '/js/bootstrap.js',
-            '/js/jquery.dataTables.min.js',
-            '/js/owl.carousel.js',
-            '/js/bootstrap-notify.js',
-            '/js/jquery.preload.js',
+            '/js/AdminLTE/app.js',
+            '/js/raphael-min.js',
+            '/js/plugins/morris/morris.min.js',
+            '/js/jquery.progressTimer.js',
+            '/js/site.js',
         );
         foreach ($js as $file) {
             $view->headScript()->appendFile($view->baseUrl($file));

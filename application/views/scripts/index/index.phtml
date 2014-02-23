@@ -1,0 +1,88 @@
+<div class="row">
+    <div class="col-lg-3 col-xs-6">
+        <!-- small box -->
+        <div class="small-box bg-aqua">
+            <div class="inner">
+                <h3>
+                    <?php echo count($this->oMpd->getAlbums()); ?>
+                </h3>
+                <p>
+                    Alben
+                </p>
+            </div>
+            <div class="icon">
+                <i class="ion ion-ios7-albums"></i>
+            </div>
+            <a href="#" class="small-box-footer">
+                More info <i class="fa fa-arrow-circle-right"></i>
+            </a>
+        </div>
+    </div>
+    <div class="col-lg-3 col-xs-6">
+        <!-- small box -->
+        <div class="small-box bg-aqua">
+            <div class="inner">
+                <h3>
+                    <?php echo count($this->oMpd->getArtists()); ?>
+                </h3>
+                <p>
+                    Artists
+                </p>
+            </div>
+            <div class="icon">
+                <i class="ion ion-android-friends"></i>
+            </div>
+            <a href="#" class="small-box-footer">
+                More info <i class="fa fa-arrow-circle-right"></i>
+            </a>
+        </div>
+    </div>
+    <div class="col-lg-3 col-xs-6">
+        <!-- small box -->
+        <div class="small-box bg-aqua">
+            <div class="inner">
+                <h3>
+                    <?php echo count($this->oMpd->getTitles()); ?>
+                </h3>
+                <p>
+                    Titel
+                </p>
+            </div>
+            <div class="icon">
+                <i class="ion ion-music-note"></i>
+            </div>
+            <a href="#" class="small-box-footer">
+                More info <i class="fa fa-arrow-circle-right"></i>
+            </a>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-4">
+    <div class="nav-tabs-custom">
+        <ul class="nav nav-tabs">
+            <li class="active"><a href="#tab_1" data-toggle="tab">Artists</a></li>
+            <li class=""><a href="#tab_2" data-toggle="tab">Alben</a></li>
+            <li class="pull-right"><a href="#" class="text-muted"><i class="fa fa-gear"></i></a></li>
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane active" id="tab_1">
+                <b>Artists:</b>
+                <div class="list-group">
+                    <?php foreach ($this->oMpd->getArtists() as $aArtist): ?>
+                        <a href="#" class="list-group-item"><?php echo $aArtist['Artist']; ?></a>
+                    <?php endforeach; ?>
+                </div>
+            </div><!-- /.tab-pane -->
+            <div class="tab-pane" id="tab_2">
+                <b>Alben:</b>
+                <div class="list-group">
+                    <?php foreach ($this->oMpd->getAlbums() as $aAlbum): ?>
+                        <a href="#" class="list-group-item"><?php echo $aAlbum['Album']; ?></a>
+                    <?php endforeach; ?>
+                </div>
+            </div><!-- /.tab-pane -->
+        </div><!-- /.tab-content -->
+    </div>
+    </div>
+</div>

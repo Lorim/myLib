@@ -1,103 +1,13 @@
-@CHARSET "UTF-8";
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 22.02.2014, 19:18:08
+    Author     : koberstaedt
+*/
 
-body { 
-    padding-top: 70px;
-}
-
-.thisbox {
-    background: #ffffff;
-    padding-bottom: 8px;
-    -webkit-border-radius: 3px 3px 3px 3px;
-    -moz-border-radius: 3px 3px 3px 3px;
-    border-radius: 3px 3px 3px 3px;
-    -webkit-box-shadow: 0px 2px 6px -1px rgb(148, 148, 148);
-    -moz-box-shadow: 0 2px 6px rgba(0, 0, 0, 0.75);
-    box-shadow: 0px 2px 6px -1px rgb(148, 148, 148);
-    margin-bottom: 15px;
-}
-.thisbox .body {
-    padding: 10px 0 0;
-}
-.thisbox .box-content {
-    padding:0 16px;
-}
-.thisbox p {
-    text-align: justify;
-    padding: 0 16px;
-    overflow: hidden;
-}
-
-.thisbox footer {
-	border-top: 2px solid #f5f5f5;
-	padding: 3px 30px 0;
-}
-
-.thisbox footer.disabled {
-	background-color: #fdf7f7;
-}
-.thisbox footer.enabled {
-	background-color: #fdf7f7;
-}
-.thisbox footer span.pointer{
-	cursor: pointer;
-}
-
-li.thisbox {
-	margin-bottom: 10px;
-}
-.list-unstyled  ul {
-	list-style-type: none;
-}
-
-.box {
-    margin: 1px;
-    margin-bottom: 14px;
-    -moz-border-radius: 3px;
-    -webkit-border-radius: 3px;
-    border-radius: 3px;
-    -moz-box-shadow: 0px 2px 6px -1px rgb(148, 148, 148);
-    -webkit-box-shadow: 0px 2px 6px -1px rgb(148, 148, 148);
-    box-shadow: 0px 2px 6px -1px rgb(148, 148, 148);
-    overflow: hidden;
-    background-color: white;
-    
-}
-
-.box,.thisbox .head {
-    padding: 5px 10px;
-    background-color: #f2f2f2;
-    color: #333333;
-    -webkit-border-radius: 3px 3px 0 0;
-    -moz-border-radius: 3px 3px 0 0;
-    border-radius: 3px 3px 0 0;
-}
-.thisbox .head.inactive {
-    background-color: #f2dede;
-}
-.box,.thisbox .head span{
-    color: #777777;
-}
-.box .body {
-    
-    border-top: 1px solid #ededed;
-}
-
-.owl-carousel img {
-    display: block;
-    max-width: 100%;
-    max-height: 500px;
-    height: auto;
-}
-
-.modal .preview {
-    width: 900px;
-}
-.head a {
-    color: #777777;
-}
-.thumbnail a strong {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    text-align: center;
+#playlist .progress {
+    margin-bottom: 0;
 }

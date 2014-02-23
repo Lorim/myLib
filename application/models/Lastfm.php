@@ -23,6 +23,7 @@ class Application_Model_Lastfm
     
     public function getAlbuminfo($sArtist, $sAlbum) {
         $sCachefile = APPLICATION_PATH."/../public/cache/album_". md5($sArtist.$sAlbum).".json";
+        $sCacheAlbum = APPLICATION_PATH."/../public/cache/album/";
         
         if(!file_exists($sCachefile)) {
             try {
@@ -37,8 +38,25 @@ class Application_Model_Lastfm
                     )
                     );
             $response = $client->request();
-            $json = $response->decodeGzip($response->getRawBody());
+            $json = $response->getBody();
             file_put_contents($sCachefile, $json);
+            $xml = json_decode($json);
+            /*
+             * Cache Cover
+             */
+            $sMbid = $xml->album->mbid;
+            if($sMbid) {
+                $sCover = "";
+                foreach($xml->album->image as $image) {
+                    $sCover = $image->{'#text'};
+                    if($image->size == 'large') {
+                        break;
+                    }
+                }
+                $client = new Zend_Http_Client($sCover);
+                $response = $client->request()->getBody();
+                file_put_contents($sCacheAlbum.  basename($sCover), $response);
+            }
             } catch (Exception $e) {
                 Zend_Debug::dump($e);
             } 
@@ -64,7 +82,7 @@ class Application_Model_Lastfm
                     );
             $response = $client->request();
 
-            $json = $response->decodeGzip($response->getRawBody());
+            $json = $response->getBody();
             file_put_contents($sCachefile, $json);
             } catch (Exception $e) {
                 Zend_Debug::dump($e);

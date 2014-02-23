@@ -1,43 +1,28 @@
-<div class="page-header">
-    <h1><?php echo $this->album->getArtist();?> <small>- <?php echo $this->album->getAlbum();?></small></h1>
-</div>
 
-<div class="col-lg-12 col-md-12">
-    <div class="row">
-        <p>
-            <table class="table table-condensed">
-                <thead>
+<div class="col-md-4">
+        <!-- Default box -->
+        <div class="box box-info">
+            <div class="box-header">
+                <h3 class="box-title"><?php echo $this->album->getArtist() . " - " . $this->album->getAlbum(); ?></h3>
+            </div>
+            <div class="box-body">
+            <table class="table table-condensed table-striped table-bordered">
+                <tbody>
                     <tr>
                         <th>Id</th>
                         <th>Titel</th>
-                        <th>Play</th>
+                        <th></th>
                     </tr>
-                </thead>
-                <tbody>
                     <?php foreach ($this->songs as $song): ?>
-                    <?php
-                    $oMeta = $this->lastfm->getTrackinfo(
-                            $song->getArtist(),
-                            $song->getTitle()
-                            );
-                    $sCover = "";
-                    /*
-                    foreach($oMeta->album->image as $image) {
-                        if($image->size == 'large') {
-                            $sCover = $image->{'#text'};
-                        }
-                    }
-                     *
-                     */
-                    ?>
                     <tr>
                         <td><?php echo $song->getId()?></td>
                         <td><?php echo $song->getTitle()?></td>
-                        <td><audio src="<?php echo $song->getWebpath()?>" preload="auto" controls></audio></td>
+                        <td><i class="fa fa-plus"></i></td>
                     </tr>
                     <?php endforeach;?>
                 </tbody>
             </table>
-        </p>
+            </div>
+        </div>
     </div>
 </div>

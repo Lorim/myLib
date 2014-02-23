@@ -1,7 +1,7 @@
 <?php
 $this->headMeta()->appendHttpEquiv('Content-Type', 'text/html;charset=utf-8');
 echo $this->doctype();
-$this->headScript()->appendFile($this->baseUrl('/js/site.js'));
+
 ?>
 <html lang="de">
     <head>
@@ -11,19 +11,25 @@ $this->headScript()->appendFile($this->baseUrl('/js/site.js'));
         <?php echo $this->headLink(); ?>
         <?php echo $this->headScript(); ?>
     </head>
-    <body>
-        <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#ps-navbar-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-            </div>
-            <div class="collapse navbar-collapse" id="ps-navbar-collapse">
-                <?php
+    <body class="skin-blue">
+        <?php echo $this->render('widgets/topnav.phtml');?>
+        <div class="wrapper row-offcanvas row-offcanvas-left">
+            <!-- Left side column. contains the logo and sidebar -->
+            <aside class="left-side sidebar-offcanvas">
+                <!-- sidebar: style can be found in sidebar.less -->
+                <section class="sidebar">
+                    <!-- search form -->
+                    <form action="#" method="get" class="sidebar-form">
+                        <div class="input-group">
+                            <input type="text" name="q" class="form-control" placeholder="Search..."/>
+                            <span class="input-group-btn">
+                                <button type='submit' name='seach' id='search-btn' class="btn btn-flat"><i class="fa fa-search"></i></button>
+                            </span>
+                        </div>
+                    </form>
+                    <!-- /.search form -->
+                    <!-- sidebar menu: : style can be found in sidebar.less -->
+                    <?php
                 $options = array('ulClass' => '', 'maxDepth' => 2);
                 $mainmenu = $this->navigation()->findOneByClass('nav');
                 echo $this->navigation()
@@ -32,12 +38,30 @@ $this->headScript()->appendFile($this->baseUrl('/js/site.js'));
                                 $this->navigation()->findOneByClass('nav'), array('navi.phtml', 'default')
                 );
                 ?>
-            </div>
-        </nav>
-        <div class="container">
-            <div class="row">
-                <?php echo $this->layout()->content; ?>
-            </div>
+                </section>
+            </aside>
+            <!-- Right side column. Contains the navbar and content of the page -->
+            <aside class="right-side">
+                <section class="content-header">
+                    <h1>
+                        <?php echo $this->header('head');?>
+                        <small><?php echo $this->header('foot');?></small>
+                    </h1>
+                    <?php
+                    echo $this->navigation()
+                            ->breadcrumbs()
+                            ->renderPartial(
+                                    $this->navigation()->findOneByClass('nav'), array('breadcrumb.phtml', 'default')
+                                    );
+                    ?>
+                </section>
+                <!-- Main content -->
+                <section class="content">
+                    <?php
+                    echo $this->layout()->content;
+                    ?>
+                </section>
+            </aside>
         </div>
         <?php
         $fm = new Zend_Controller_Action_Helper_FlashMessenger();

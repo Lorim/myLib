@@ -1,0 +1,31 @@
+<?php
+$this->headMeta()->appendHttpEquiv('Content-Type', 'text/html;charset=utf-8');
+echo $this->doctype();
+$this->headScript()->appendFile($this->baseUrl('/js/site.js'));
+?>
+<html lang="de">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <?php echo $this->headMeta(); ?>
+        <?php echo $this->headTitle(); ?>
+        <?php echo $this->headLink(); ?>
+        <?php echo $this->headScript(); ?>
+    </head>
+    <body class="skin-blue">
+                    <?php
+                    echo $this->layout()->content;
+                    ?>
+        <?php
+        $fm = new Zend_Controller_Action_Helper_FlashMessenger();
+        $messages = array_merge($fm->getMessages(), $fm->getCurrentMessages());
+        $fm->clearCurrentMessages();
+        if (count($messages)) {
+            foreach ($messages as $msg) {
+                ?>
+                <div class='notifications top-right' data-message='<?php echo $msg; ?>'></div>
+                <?php
+            }
+        }
+        ?>
+    </body>
+</html>

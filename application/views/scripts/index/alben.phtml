@@ -1,44 +1,31 @@
-<div class="page-header">
-    <h1>myLib <small>- Alben</small></h1>
-</div>
-
-<div class="col-lg-12 col-md-12">
-    <div class="row">
-        <p>
-            <?php foreach ($this->alben as $album): ?>
-            <?php
-            $oMeta = $this->lastfm->getAlbuminfo(
-                    $album->getArtist(),
-                    $album->getAlbum()
-                    );
-            $sCover = "";
-            foreach($oMeta->album->image as $image) {
-                if($image->size == 'large') {
-                    $sCover = $image->{'#text'};
-                }
-            }
-            $sUrl = $this->url(array(
-                'controller'=>'index',
-                'action'=>'album',
-                'alb'=>$album->getId())
-                    , null, TRUE);
-
-            ?>
-            <div class="content col-lg-2 col-md-4 col-sm-6">
-                <h5><?php echo $album->getArtist()."<br />".$album->getAlbum();?></h5>
-                <div class="row">
-                    <div class="col-lg-12 col-sm-6">
-                        <a href="<?php echo $sUrl;?>"> 
-                           <!--
-                        <img data-src="holder.js/140x140" class="img-thumbnail" alt="140x140" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNDAiIGhlaWdodD0iMTQwIj48cmVjdCB3aWR0aD0iMTQwIiBoZWlnaHQ9IjE0MCIgZmlsbD0iI2VlZSI+PC9yZWN0Pjx0ZXh0IHRleHQtYW5jaG9yPSJtaWRkbGUiIHg9IjcwIiB5PSI3MCIgc3R5bGU9ImZpbGw6I2FhYTtmb250LXdlaWdodDpib2xkO2ZvbnQtc2l6ZToxMnB4O2ZvbnQtZmFtaWx5OkFyaWFsLEhlbHZldGljYSxzYW5zLXNlcmlmO2RvbWluYW50LWJhc2VsaW5lOmNlbnRyYWwiPjE0MHgxNDA8L3RleHQ+PC9zdmc+" style="width: 140px; height: 140px;">
-                            -->
-                            
-                            <img data-src="holder.js/140x140" class="img-thumbnail" alt="140x140" src="<?php echo $sCover;?>" style="width: 140px; height: 140px;">
-                        </a>
-                    </div>
-                </div>
+<?php foreach ($this->alben as $album): ?>
+    <?php
+    $oMeta = $this->lastfm->getAlbuminfo(
+            $album->getArtist(), $album->getAlbum()
+    );
+    $sCover = "";
+    foreach ($oMeta->album->image as $image) {
+        if ($image->size == 'large') {
+            $sCover = $image->{'#text'};
+        }
+    }
+    $sUrl = $this->url(array(
+        'controller' => 'index',
+        'action' => 'album',
+        'alb' => $album->getId())
+            , null, TRUE);
+    ?>
+    <div class="col-md-4">
+        <!-- Default box -->
+        <div class="box box-info">
+            <div class="box-header">
+                <h3 class="box-title"><?php echo $album->getArtist() . " - " . $album->getAlbum(); ?></h3>
             </div>
-        <?php endforeach; ?>
-        </p>
+            <div class="box-body">
+                <a href="<?php echo $sUrl; ?>"> 
+                    <img data-src="holder.js/140x140" class="img-thumbnail" alt="140x140" src="<?php echo $sCover; ?>" style="width: 140px; height: 140px;">
+                </a>
+            </div><!-- /.box-body -->
+        </div><!-- /.box -->
     </div>
-</div>
+<?php endforeach; ?>

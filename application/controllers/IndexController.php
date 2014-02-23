@@ -8,10 +8,42 @@ class IndexController extends Zend_Controller_Action {
     }
 
     public function indexAction() {
-        
+        $oMpd = new Application_Model_Mpd();
+        $this->view->oMpd = $oMpd;
+        $oPl = new Application_Model_Playlist($oMpd);
     }
 
+    public function playtimeAction() {
+        $this->_helper->layout()->disableLayout(); 
+        $this->_helper->viewRenderer->setNoRender(true);
+        $oMpd = new Application_Model_Mpd();
+        $oPl = new Application_Model_Playlist($oMpd);
+        $aActivesong = $oPl->getActiveSong();
+        $iElapsed = $aActivesong['elapsed'];
+        $iToplay = $aActivesong['Time'];
+        
+        $aReturn = array(
+            'status' => $iElapsed ? true : false,
+            'elapsed' => $iElapsed,
+            'full' => $iToplay,
+            'songid' => $aActivesong['Id']
+        );
+        echo json_encode($aReturn);
+        
+    }
+    
+    public function playAction() {
+        $this->_helper->layout()->disableLayout(); 
+        $this->_helper->viewRenderer->setNoRender(true);
+        $oMpd = new Application_Model_Mpd();
+        $iPos = $this->_request->getParam('id');
+        $oMpd->playSong($iPos);
+    }
     public function loginAction() {
+        
+        
+        $this->_helper->_layout->setLayout('login');
+        
         $form = new Application_Form_Login();
         $this->view->form = $form;
         
@@ -97,14 +129,6 @@ class IndexController extends Zend_Controller_Action {
         } catch (Exception $ex) {
             Zend_Debug::dump($ex);
         }
-    }
-    public function playAction() {
-        $this->_helper->layout()->disableLayout(); 
-        $this->_helper->viewRenderer->setNoRender(true);
-        $iMp3 = $this->_request->getParam('id');
-        $oMp3mapper = new Application_Model_Mp3Mapper();
-        $oMp3 = $oMp3mapper->fetchOne($iMp3);
-        readfile($oMp3->getPath(). "/" . $oMp3->getFilename());
     }
     public function albenAction() {
         $oAlbummapper = new Application_Model_AlbumMapper();

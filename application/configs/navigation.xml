@@ -2,7 +2,7 @@
 <configdata>
     <nav>
         <character>
-            <label>myLib</label>
+            <label>Alben</label>
             <controller></controller>
             <route>default</route>
             <resource>mylib</resource>

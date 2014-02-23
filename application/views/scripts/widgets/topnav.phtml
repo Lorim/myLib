@@ -1,0 +1,99 @@
+<?php
+$auth = Zend_Auth::getInstance();
+if($auth->hasIdentity()) {
+    $sGroup = $auth->getIdentity()->group;
+    $sUser = $auth->getIdentity()->username;
+    $sCreated = $auth->getIdentity()->created;
+} else {
+    return;
+}
+$sUrl = $this->url(array(
+        'controller' => 'index',
+        'action' => 'logout',)
+            , null, TRUE);
+
+?>
+
+<header class="header">
+    <a href="/" class="logo">
+        <!-- Add the class icon to your logo image or logo icon to add the margining -->
+        myLib
+    </a>
+    <!-- Header Navbar: style can be found in header.less -->
+    <nav class="navbar navbar-static-top" role="navigation">
+        <!-- Sidebar toggle button-->
+        <a href="#" class="navbar-btn sidebar-toggle" data-toggle="offcanvas" role="button">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </a>
+        <div class="navbar-right">
+            <ul class="nav navbar-nav">
+                <!-- Messages: style can be found in dropdown.less-->
+                <li class="dropdown messages-menu">
+                    <?php
+                    $oMpd = new Application_Model_Mpd();
+                    $oPl = new Application_Model_Playlist($oMpd);
+                    $aStatus = $oMpd->getStatus();
+                    ?>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <i class="fa fa-envelope"></i>
+                        <span>Playlist</span>
+                        <span class="label label-success"><?php echo count($oPl->getPlaylist());?></span>
+                    </a>
+                    
+                    <ul class="dropdown-menu">
+                        <li>
+                            <!-- inner menu: contains the actual data -->
+                            <ul class="menu" id="playlist">
+                                <?php foreach($oPl->getPlaylist() as $song):?>
+                                <li><!-- start message -->
+                                    <a href="#">
+                                        <div class="pull-left" data-songid="<?php echo $song['Id'] ?>" 
+                                             data-songpos="<?php echo $song['Pos'] ?>">
+                                        </div>
+                                        <h4>
+                                            <?php echo $song['Artist'];?>
+                                            <small><i class="fa fa-clock-o"></i> <?php echo $song['Timeformat'];?> mins</small>
+                                        </h4>
+                                        <p><?php echo $song['Title'];?></p>
+                                        <div class="playtime"></div>
+                                    </a>
+                                </li><!-- end message -->
+                                <?php endforeach;?>
+                            </ul>
+                        </li>
+                        <li class="footer"><a href="#"><?php echo count($oPl->getPlaylist());?> Songs in Playlist</a></li>
+                    </ul>
+                </li>
+                <!-- User Account: style can be found in dropdown.less -->
+                <li class="dropdown user user-menu">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <i class="glyphicon glyphicon-user"></i>
+                        <span><?php echo $sUser;?> <i class="caret"></i></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <!-- User image -->
+                        <li class="user-header bg-light-blue">
+                            <img src="/img/avatar.jpg" class="img-circle" alt="User Image" />
+                            <p>
+                                <?php printf("%s - %s", $sUser, $sGroup);?>
+                            </p>
+                        </li>
+                        
+                        <!-- Menu Footer-->
+                        <li class="user-footer">
+                            <div class="pull-left">
+                                <a href="#" class="btn btn-default btn-flat">Profile</a>
+                            </div>
+                            <div class="pull-right">
+                                <a href="<?php echo $sUrl;?>" class="btn btn-default btn-flat">Sign out</a>
+                            </div>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</header>
