@@ -6,6 +6,30 @@
 
 
 $(document).ready(function() {
+
+    renderDir('');
+    
+    $("#browsedir").on("click", "a", function() { 
+        console.log(encodeURIComponent($(this).data('path')));
+        renderDir(encodeURIComponent($(this).data('path')));
+    });
+
+    
+    function renderDir(path) {
+        $.ajax({
+            url: "/index/getdir/path/" + path,
+        }).done(function(data) {
+            $("#browsedir").html(data);
+        });
+    }
+    
+    $('#browsedir').on("click","i[data-song]", function(){
+        $.ajax({
+            url: "/index/playlist/a/add/song/" + encodeURIComponent($(this).data('song'))
+        });
+    });
+
+
     function startTimer(ele, starttime, totaltime) {
         ele.progressTimer({
             timeLimit: totaltime,
@@ -17,7 +41,7 @@ $(document).ready(function() {
     }
     var playlisttimer = false;
     function handlePlaylist() {
-        $.getJSON("/index/playtime", function(json) {
+        $.getJSON("/index/playlist/a/playtime", function(json) {
             $("#playlist div[data-songid]").html("");
             console.log(json.status);
             if (json.status === false) {
@@ -26,21 +50,21 @@ $(document).ready(function() {
                 }, 5000);
             } else {
                 clearTimeout(playlisttimer);
-            
-            var ele = $("#playlist div[data-songid='" + json.songid + "']");
-            ele.html('<i class="glyphicon glyphicon-headphones"></i>');
-            $("#playlist .playtime").html('');
-            startTimer(ele.parent().find('.playtime'), json.elapsed, json.full);
+
+                var ele = $("#playlist div[data-songid='" + json.songid + "']");
+                ele.html('<i class="glyphicon glyphicon-headphones"></i>');
+                $("#playlist .playtime").html('');
+                startTimer(ele.parent().find('.playtime'), json.elapsed, json.full);
             }
         });
     }
-    
-        handlePlaylist();
-        $('#playlist a').click(function() {
-            $.ajax({
-                async: false,
-                url: '/index/play/id/'+$(this).find('div[data-songid]').data('songpos'),
-                success: handlePlaylist()
-            });
+
+    handlePlaylist();
+    $('#playlist a').click(function() {
+        $.ajax({
+            async: false,
+            url: '/index/playlist/a/play/id/' + $(this).find('div[data-songid]').data('songpos'),
+            success: handlePlaylist()
         });
     });
+});

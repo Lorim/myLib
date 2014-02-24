@@ -11,3 +11,8 @@ and open the template in the editor.
 #playlist .progress {
     margin-bottom: 0;
 }
+
+.list-group .tools {
+    display: inline-block;
+    float: right;
+}

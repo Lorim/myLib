@@ -110,7 +110,7 @@ class Application_Model_Mpd
         return $this->parseMultiResponse($sPlaylist);
     }
     public function getDir($sDir = "") {
-        return $this->request('lsinfo', $sDir);
+        return $this->_parseFileListResponse($this->request('lsinfo', $sDir));
     }
     public function getCurrent() {
         return $this->parseResponse($this->request('currentsong'));
@@ -133,8 +133,11 @@ class Application_Model_Mpd
     public function playSong($iId) {
         return $this->request('play', $iId);
     }
+    public function addSong($sSong) {
+        return $this->request('add', $sSong);
+    }
     public function getOutputs() {
-        return $this->request('outputs');
+        return $this->parseMultiResponse($this->request('outputs'));
     }
     public function setOutput($iOutput, $bStatus=true) {
         if($bStatus == true) {
@@ -143,4 +146,26 @@ class Application_Model_Mpd
             $this->request('disable', $iOutput);
         }
     }
+
+    function _parseFileListResponse($resp) {
+		if ( is_null($resp) ) {
+			return NULL;
+		} else {
+			$plistArray = array();
+			$plistLine = strtok($resp,"\n");
+			$plistFile = "";
+			$plCounter = -1;
+			while ( $plistLine ) {
+				@list ( $element, $value ) = split(": ",$plistLine);
+				if($element == "file" || $element=="directory") {
+				  $plCounter++;
+				  $plistArray[$plCounter]['name']=$value;
+				  $plistArray[$plCounter]['type']=$element; 
+				}
+				$plistLine = strtok("\n");
+			} 
+		}
+		return $plistArray;
+	}
+    
 }

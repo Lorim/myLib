@@ -86,7 +86,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
 
         $view->baseUrl = $view->baseUrl();
         $css = array(
-            '/css/bootstrap.css',
+            //'/css/bootstrap.css',
             '/css/AdminLTE.css',
             '/css/font-awesome.min.css',
             '/css/ionicons.min.css',

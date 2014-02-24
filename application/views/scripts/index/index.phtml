@@ -58,31 +58,17 @@
     </div>
 </div>
 <div class="row">
-    <div class="col-lg-4">
-    <div class="nav-tabs-custom">
-        <ul class="nav nav-tabs">
-            <li class="active"><a href="#tab_1" data-toggle="tab">Artists</a></li>
-            <li class=""><a href="#tab_2" data-toggle="tab">Alben</a></li>
-            <li class="pull-right"><a href="#" class="text-muted"><i class="fa fa-gear"></i></a></li>
-        </ul>
-        <div class="tab-content">
-            <div class="tab-pane active" id="tab_1">
-                <b>Artists:</b>
-                <div class="list-group">
-                    <?php foreach ($this->oMpd->getArtists() as $aArtist): ?>
-                        <a href="#" class="list-group-item"><?php echo $aArtist['Artist']; ?></a>
-                    <?php endforeach; ?>
+    <div class="col-lg-9">
+        <div class="box box-primary">
+            <div class="box-header" data-toggle="tooltip" title="" data-original-title="Header tooltip">
+                <h3 class="box-title">Browse</h3>
+                <div class="box-tools pull-right">
+                    <button class="btn btn-primary btn-xs" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                    <button class="btn btn-primary btn-xs" data-widget="remove"><i class="fa fa-times"></i></button>
                 </div>
-            </div><!-- /.tab-pane -->
-            <div class="tab-pane" id="tab_2">
-                <b>Alben:</b>
-                <div class="list-group">
-                    <?php foreach ($this->oMpd->getAlbums() as $aAlbum): ?>
-                        <a href="#" class="list-group-item"><?php echo $aAlbum['Album']; ?></a>
-                    <?php endforeach; ?>
-                </div>
-            </div><!-- /.tab-pane -->
-        </div><!-- /.tab-content -->
-    </div>
+            </div>
+            <div class="box-body" id='browsedir'>
+            </div><!-- /.box-body -->
+        </div>
     </div>
 </div>
