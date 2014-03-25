@@ -8,7 +8,13 @@ foreach ($this->container as $page) {
     if (!$this->navigation()->accept($page)) {
         continue;
     }
-    $active = $page->active ? "active" : "";
+    $active = "";
+    foreach($page->pages as $sub) {
+        if($sub->isActive()) {
+            $active = " active";
+        }
+    }
+    
     if ($page->pages) {
         $page->setClass("dropdown-toggle");
         $html[] = "<li class='treeview$active'>";
@@ -29,14 +35,14 @@ foreach ($this->container as $page) {
         $html[] = "<ul class='treeview-menu'>";
         foreach ($page->pages as $subpage) {
             $active = "";
-            if ($subpage->active) {
+            if ($subpage->isActive()) {
                 $active = "active";
             }
             if (!$this->navigation()->accept($subpage)) {
                 continue;
             }
             
-            $html[] = "<li>";
+            $html[] = "<li class='$active'>";
             $html[] = sprintf("<a href='%s'>", $subpage->getHref());
             $html[] = "<i class='fa fa-angle-double-right'></i>";
             $html[] = $this->translate($subpage->getLabel());

@@ -23,7 +23,8 @@ class Application_Controller_Helper_Acl {
                 ->add(new Zend_Acl_Resource("index"))
                 ->add(new Zend_Acl_Resource("user"))
                 ->add(new Zend_Acl_Resource("error"))
-                ->add(new Zend_Acl_Resource("admin"))
+                ->add(new Zend_Acl_Resource("modal"))
+                ->add(new Zend_Acl_Resource("json"))
                 ->add(new Zend_Acl_Resource("mylib"));
     }
 

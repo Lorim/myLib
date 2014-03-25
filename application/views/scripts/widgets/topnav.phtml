@@ -32,40 +32,8 @@ $sUrl = $this->url(array(
             <ul class="nav navbar-nav">
                 <!-- Messages: style can be found in dropdown.less-->
                 <li class="dropdown messages-menu">
-                    <?php
-                    $oMpd = new Application_Model_Mpd();
-                    $oPl = new Application_Model_Playlist($oMpd);
-                    $aStatus = $oMpd->getStatus();
-                    ?>
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <i class="fa fa-envelope"></i>
-                        <span>Playlist</span>
-                        <span class="label label-success"><?php echo count($oPl->getPlaylist());?></span>
-                    </a>
                     
-                    <ul class="dropdown-menu">
-                        <li>
-                            <!-- inner menu: contains the actual data -->
-                            <ul class="menu" id="playlist">
-                                <?php foreach($oPl->getPlaylist() as $song):?>
-                                <li><!-- start message -->
-                                    <a href="#">
-                                        <div class="pull-left" data-songid="<?php echo $song['Id'] ?>" 
-                                             data-songpos="<?php echo $song['Pos'] ?>">
-                                        </div>
-                                        <h4>
-                                            <?php echo $song['Artist'];?>
-                                            <small><i class="fa fa-clock-o"></i> <?php echo $song['Timeformat'];?> mins</small>
-                                        </h4>
-                                        <p><?php echo $song['Title'];?></p>
-                                        <div class="playtime"></div>
-                                    </a>
-                                </li><!-- end message -->
-                                <?php endforeach;?>
-                            </ul>
-                        </li>
-                        <li class="footer"><a href="#"><?php echo count($oPl->getPlaylist());?> Songs in Playlist</a></li>
-                    </ul>
+                    
                 </li>
                 <!-- User Account: style can be found in dropdown.less -->
                 <li class="dropdown user user-menu">

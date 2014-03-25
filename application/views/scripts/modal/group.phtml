@@ -1,0 +1,11 @@
+<select multiple="multiple" id="groupconfig" name="my-select[]" class="multiselect">
+<?php foreach ($this->lights as $light):
+    $checked = "";
+    if(in_array($light->getId(), $this->group->getLightIds())) {
+        $checked = 'selected="selected"';
+    }
+    ?>
+    <option value='<?php echo $light->getId();?>' <?php echo $checked;?>><?php echo $light->getName();?></option>
+<?php endforeach;?>
+</select>
+<input type="hidden" data-target="/json/grouplights/id/<?php echo $this->group->getId();?>" />

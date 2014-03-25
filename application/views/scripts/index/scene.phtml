@@ -1,0 +1,31 @@
+<div class="row">
+    <div class="col-xs-12">
+        <div class="box">
+            <div class="box-header">
+                <h3 class="box-title">Lampenübersicht</h3>
+            </div><!-- /.box-header -->
+            <div class="box-body table-responsive no-padding">
+                <table class="table table-hover">
+                    <tbody><tr>
+                            <th>ID</th>
+                            <th>User</th>
+                            <th>Action</th>
+                        </tr>
+                        <?php foreach($this->schedules as $schedule):?>
+                        <tr>
+                            <td><?php echo $schedule->getId();?></td>
+                            <td><?php echo $schedule->getName();?></td>
+                                <td>
+                                    <?php if($schedule->isOn()):?>
+                                    <input checked="checked" type="checkbox" name="switch" data-size="small" data-type="light" data-id="<?php echo $schedule->getId();?>" data-action="toggle" />
+                                    <?php else:?>
+                                    <input type="checkbox" name="switch" data-size="small" data-type="light" data-id="<?php echo $schedule->getId();?>" data-action="toggle" />
+                                    <?php endif;?>
+                                </td>
+                        </tr>
+                        <?php endforeach;?>
+                    </tbody></table>
+            </div><!-- /.box-body -->
+        </div><!-- /.box -->
+    </div>
+</div>

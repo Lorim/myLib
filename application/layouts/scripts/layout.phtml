@@ -1,12 +1,10 @@
 <?php
 $this->headMeta()->appendHttpEquiv('Content-Type', 'text/html;charset=utf-8');
 echo $this->doctype();
-
 ?>
 <html lang="de">
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
 
         <?php echo $this->headMeta(); ?>
         <?php echo $this->headTitle(); ?>
@@ -14,7 +12,7 @@ echo $this->doctype();
         <?php echo $this->headScript(); ?>
     </head>
     <body class="skin-blue">
-        <?php echo $this->render('widgets/topnav.phtml');?>
+        <?php echo $this->render('widgets/topnav.phtml'); ?>
         <div class="wrapper row-offcanvas row-offcanvas-left">
             <!-- Left side column. contains the logo and sidebar -->
             <aside class="left-side sidebar-offcanvas">
@@ -32,29 +30,29 @@ echo $this->doctype();
                     <!-- /.search form -->
                     <!-- sidebar menu: : style can be found in sidebar.less -->
                     <?php
-                $options = array('ulClass' => '', 'maxDepth' => 2);
-                $mainmenu = $this->navigation()->findOneByClass('nav');
-                echo $this->navigation()
-                        ->menu()
-                        ->renderPartial(
-                                $this->navigation()->findOneByClass('nav'), array('navi.phtml', 'default')
-                );
-                ?>
+                    $options = array('ulClass' => '', 'maxDepth' => 2);
+                    $mainmenu = $this->navigation()->findOneByClass('nav');
+                    echo $this->navigation()
+                            ->menu()
+                            ->renderPartial(
+                                    $this->navigation()->findOneByClass('nav'), array('navi.phtml', 'default')
+                    );
+                    ?>
                 </section>
             </aside>
             <!-- Right side column. Contains the navbar and content of the page -->
             <aside class="right-side">
                 <section class="content-header">
                     <h1>
-                        <?php echo $this->header('head');?>
-                        <small><?php echo $this->header('foot');?></small>
+                        <?php echo $this->header('head'); ?>
+                        <small><?php echo $this->header('foot'); ?></small>
                     </h1>
                     <?php
                     echo $this->navigation()
                             ->breadcrumbs()
                             ->renderPartial(
                                     $this->navigation()->findOneByClass('nav'), array('breadcrumb.phtml', 'default')
-                                    );
+                    );
                     ?>
                 </section>
                 <!-- Main content -->
@@ -77,5 +75,20 @@ echo $this->doctype();
             }
         }
         ?>
+        <div class="modal fade" id="groups">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title">Gruppe konfigurieren</h4>
+                    </div>
+                    <div class="modal-body"></div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" data-action="save">Speichern</button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
     </body>
 </html>

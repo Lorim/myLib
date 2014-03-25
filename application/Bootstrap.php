@@ -12,6 +12,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
     protected function _initAutoLoad() {
         $autoLoader = Zend_Loader_Autoloader::getInstance();
         $autoLoader->registerNamespace('Application_');
+        $autoLoader->registerNamespace('Phue_');
         return $autoLoader;
     }
 
@@ -22,6 +23,10 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
            ->registerPlugin(new Application_Plugin_Auth());
     }
     
+    protected function _initHue() {
+        $oHue = new Phue_Client('192.168.1.6','71eb9f1234f6517bb64a251923854b');
+        Zend_Registry::set('hue', $oHue);
+    }
     protected function _initNavigation() {
 
         $helper = new Application_Controller_Helper_Acl();
@@ -86,10 +91,13 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
 
         $view->baseUrl = $view->baseUrl();
         $css = array(
-            //'/css/bootstrap.css',
+            '/css/bootstrap.css',
             '/css/AdminLTE.css',
             '/css/font-awesome.min.css',
             '/css/ionicons.min.css',
+            '/css/bootstrap-switch.css',
+            '/css/multi-select.css',
+            '/css/pick-a-color-1.2.2.min.css',
             '/css/site.css',
         );
         foreach ($css as $file) {
@@ -102,6 +110,10 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
             '/js/raphael-min.js',
             '/js/plugins/morris/morris.min.js',
             '/js/jquery.progressTimer.js',
+            '/js/bootstrap-switch.js',
+            '/js/jquery.multi-select.js',
+            '/js/tinycolor-0.9.15.min.js',
+            '/js/pick-a-color.js',
             '/js/site.js',
         );
         foreach ($js as $file) {

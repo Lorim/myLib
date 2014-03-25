@@ -1,13 +1,14 @@
 <div class="row">
+    <?php foreach($this->groups as $group):?>
     <div class="col-lg-3 col-xs-6">
         <!-- small box -->
         <div class="small-box bg-aqua">
             <div class="inner">
                 <h3>
-                    <?php echo count($this->oMpd->getAlbums()); ?>
+                    <?php echo $group->getName();?>
                 </h3>
                 <p>
-                    Alben
+                    <?php echo count($group->getLightIds());?> Lampen
                 </p>
             </div>
             <div class="icon">
@@ -18,57 +19,7 @@
             </a>
         </div>
     </div>
-    <div class="col-lg-3 col-xs-6">
-        <!-- small box -->
-        <div class="small-box bg-aqua">
-            <div class="inner">
-                <h3>
-                    <?php echo count($this->oMpd->getArtists()); ?>
-                </h3>
-                <p>
-                    Artists
-                </p>
-            </div>
-            <div class="icon">
-                <i class="ion ion-android-friends"></i>
-            </div>
-            <a href="#" class="small-box-footer">
-                More info <i class="fa fa-arrow-circle-right"></i>
-            </a>
-        </div>
-    </div>
-    <div class="col-lg-3 col-xs-6">
-        <!-- small box -->
-        <div class="small-box bg-aqua">
-            <div class="inner">
-                <h3>
-                    <?php echo count($this->oMpd->getTitles()); ?>
-                </h3>
-                <p>
-                    Titel
-                </p>
-            </div>
-            <div class="icon">
-                <i class="ion ion-music-note"></i>
-            </div>
-            <a href="#" class="small-box-footer">
-                More info <i class="fa fa-arrow-circle-right"></i>
-            </a>
-        </div>
-    </div>
+    <?php endforeach;?>
 </div>
-<div class="row">
-    <div class="col-lg-9">
-        <div class="box box-primary">
-            <div class="box-header" data-toggle="tooltip" title="" data-original-title="Header tooltip">
-                <h3 class="box-title">Browse</h3>
-                <div class="box-tools pull-right">
-                    <button class="btn btn-primary btn-xs" data-widget="collapse"><i class="fa fa-minus"></i></button>
-                    <button class="btn btn-primary btn-xs" data-widget="remove"><i class="fa fa-times"></i></button>
-                </div>
-            </div>
-            <div class="box-body" id='browsedir'>
-            </div><!-- /.box-body -->
-        </div>
-    </div>
-</div>
+
+<button class="switch" data-type="group" data-id="1" data-action="toggle">Test</button>

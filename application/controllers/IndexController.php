@@ -8,29 +8,27 @@ class IndexController extends Zend_Controller_Action {
     }
 
     public function indexAction() {
-        $oMpd = new Application_Model_Mpd();
-        $this->view->oMpd = $oMpd;
-        $oPl = new Application_Model_Playlist($oMpd);
+        $oHue = Zend_Registry::get('hue');
+        
+        $this->view->groups = $oHue->getGroups();
     }
     
-    public function getdirAction() {
-        $this->_helper->layout()->disableLayout(); 
-        $this->_helper->viewRenderer->setNoRender(true);
-        $oMpd = new Application_Model_Mpd();
-        $sPath = $this->_request->getParam('path');
-        $this->view->dir = $oMpd->getDir($sPath);
-        $remove = strrchr($sPath, '/');
-        if($remove) {
-            $sUrl = str_replace("$remove", "", $sPath);
-        } else {
-            $sUrl = '/';
-        }
-        $this->view->prevdir = $sUrl;
-        try {
-            echo $this->view->render('widgets/dirlist.phtml');
-        } catch (Exception $e) {
-            Zend_Debug::dump($e->getMessage());
-        }
+    public function lightAction() {
+        $oHue = Zend_Registry::get('hue');
+        $this->view->lights = $oHue->getLights();
+    }
+    public function groupAction() {
+        $oHue = Zend_Registry::get('hue');
+        $this->view->groups = $oHue->getGroups();
+    }
+    
+    public function scheduleAction() {
+        $oHue = Zend_Registry::get('hue');
+        $this->view->schedules = $oHue->getSchedules();
+    }
+    
+    public function sceneAction() {
+        
     }
     
     public function loginAction() {
@@ -66,40 +64,5 @@ class IndexController extends Zend_Controller_Action {
         $auth = Zend_Auth::getInstance();
         $auth->clearIdentity();
         $this->_helper->redirector->gotoUrl($this->getRequest()->getServer('HTTP_REFERER'));
-    }
-    public function viewAction() {
-        $oMp3mapper = new Application_Model_Mp3Mapper();
-        $aList = $oMp3mapper->fetchAll();
-        $this->view->mp3 = $aList;
-    }
-    
-    public function playlistAction() {
-        $this->_helper->layout()->disableLayout(); 
-        $this->_helper->viewRenderer->setNoRender(true);
-        $oMpd = new Application_Model_Mpd();
-        $oPl = new Application_Model_Playlist($oMpd);
-        switch($this->_request->getParam('a')) {
-            case 'add':
-                $sSong = $this->_request->getParam('song');
-                $oMpd->addSong($sSong);
-                break;
-            case 'play':
-                $iPos = $this->_request->getParam('id');
-                $oMpd->playSong($iPos);
-                break;
-            case 'playtime':
-                $aActivesong = $oPl->getActiveSong();
-                $iElapsed = $aActivesong['elapsed'];
-                $iToplay = $aActivesong['Time'];
-
-                $aReturn = array(
-                    'status' => $iElapsed ? true : false,
-                    'elapsed' => $iElapsed,
-                    'full' => $iToplay,
-                    'songid' => $aActivesong['Id']
-                );
-                echo json_encode($aReturn);
-                break;
-        }
     }
 }

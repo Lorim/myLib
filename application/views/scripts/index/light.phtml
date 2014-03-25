@@ -1,0 +1,43 @@
+<div class="row">
+    <div class="col-xs-12">
+        <div class="box">
+            <div class="box-header">
+                <h3 class="box-title">Lampenübersicht</h3>
+            </div><!-- /.box-header -->
+            <div class="box-body table-responsive no-padding">
+                <table class="table table-hover">
+                    <tbody><tr>
+                            <th class="col-xs-1">ID</th>
+                            <th class="col-xs-2">User</th>
+                            <th class="col-xs-2">Action</th>
+                            <th class="col-xs-2">Find</th>
+                            <th>Info</th>
+                        </tr>
+                        <?php foreach($this->lights as $light):?>
+                        <?php
+                        $lighturl = $this->url(array(
+                                    'controller' => 'modal',
+                                    'action' => 'info',
+                                    'id' => $light->getId()
+                                ), 'default');
+                        ?>
+                        <tr>
+                            <td><?php echo $light->getId();?></td>
+                            <td><?php echo $light->getName();?></td>
+                            <td>
+                                <?php if($light->isOn()):?>
+                                <input checked="checked" type="checkbox" name="switch" data-size="small" data-type="light" data-id="<?php echo $light->getId();?>" data-action="toggle" />
+                                <?php else:?>
+                                <input type="checkbox" name="switch" data-size="small" data-type="light" data-id="<?php echo $light->getId();?>" data-action="toggle" />
+                                <?php endif;?>
+                            </td>
+                            <td class="col-xs-2"><input type="text" value="000" data-action="setHSV" data-id="<?php echo $light->getId();?>" name="border-color" class="pick-a-color form-control"></td>
+                            <td><button class="btn btn-info btn-flat setstate" data-type="light" data-id="<?php echo $light->getId();?>" data-action="blink">Info</button></td>
+                            
+                        </tr>
+                        <?php endforeach;?>
+                    </tbody></table>
+            </div><!-- /.box-body -->
+        </div><!-- /.box -->
+    </div>
+</div>

@@ -2,28 +2,40 @@
 <configdata>
     <nav>
         <character>
-            <label>Alben</label>
+            <label>Philips Hue</label>
             <controller></controller>
             <route>default</route>
             <resource>mylib</resource>
             <privilege>view</privilege>
             <pages>
-                <library>
-                    <label>MP3 List</label>
+                <lights>
+                    <label>Lampen</label>
                     <controller>index</controller>
-                    <route>default</route>
-                    <action>view</action>
+                    <action>light</action>
                     <resource>mylib</resource>
                     <privilege>view</privilege>
-                </library>
-                <levelchar>
-                    <label>Alben</label>
+                </lights>
+                <groups>
+                    <label>Gruppen</label>
                     <controller>index</controller>
-                    <route>default</route>
-                    <action>alben</action>
+                    <action>group</action>
                     <resource>mylib</resource>
-                    <privilege>alben</privilege>
-                </levelchar>
+                    <privilege>view</privilege>
+                </groups>
+                <scene>
+                    <label>Scenen</label>
+                    <controller>index</controller>
+                    <action>scene</action>
+                    <resource>mylib</resource>
+                    <privilege>view</privilege>
+                </scene>
+                <schedules>
+                    <label>Zeitpläne</label>
+                    <controller>index</controller>
+                    <action>schedule</action>
+                    <resource>mylib</resource>
+                    <privilege>view</privilege>
+                </schedules>
             </pages>
         </character>
     </nav>
